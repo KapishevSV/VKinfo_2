@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">"Working with the database"</string>
+    <string name="id">Enter user id</string>
+    <string name="search">Search</string>
+    <string name="result">The result will be displayed here</string>
+
+    <string name="error_message">An error has occurred, please try again!</string>
+</resources>
