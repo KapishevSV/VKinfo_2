@@ -32,7 +32,7 @@
     </LinearLayout>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,4 +61,11 @@
             android:layout_height="45dp"
             />
     </FrameLayout>
+    <TextView
+        android:id="@+id/tv_http_link"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="20sp"
+        android:padding="16dp"
+        android:text="link"/>
 </LinearLayout>

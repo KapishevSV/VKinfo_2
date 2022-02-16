@@ -13,9 +13,9 @@ import java.util.Scanner;
 import javax.net.ssl.HttpsURLConnection;
 
 public class NetworkUtils {
-    private static final String API_BASE_URL = "http://home71.hopto.org:3311/postgresql1-0.0.1-SNAPSHOT/";
-    private static final String USERS_GET = "client";
-    private static final String PARAM_USER_ID = "id";
+    private static final String API_BASE_URL = "http://home71.hopto.org:3311/postgresql/";
+    private static final String USERS_GET = "counter_sni";
+    private static final String PARAM_USER_ID = "sni";
 
     public static URL generateURL(String userId){
         Uri builtUri = Uri.parse(API_BASE_URL + USERS_GET)

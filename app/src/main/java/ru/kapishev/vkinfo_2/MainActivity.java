@@ -1,7 +1,5 @@
 package ru.kapishev.vkinfo_2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,7 +9,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.json.JSONArray;
+import androidx.appcompat.app.AppCompatActivity;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView result;
     private TextView errorMessage;
     private ProgressBar progressBar;
+    private TextView httpLink;
+    private String jsonResponse;
 
     private void showResultTextView() {
         result.setVisibility(View.VISIBLE);
@@ -59,17 +60,20 @@ public class MainActivity extends AppCompatActivity {
             String city = null;
             String street = null;
             String building = null;
+            String modelCounter = null;
 
             if(response != null && response != "") {
                 try {
+                    jsonResponse = response;
                     JSONObject jsonResponse = new JSONObject(response);
                     city = jsonResponse.getString("city");
                     street = jsonResponse.getString("street");
                     building = jsonResponse.getString("building");
+                    modelCounter = jsonResponse.getJSONObject("modelCounter").getString("type_name");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                String resultingString = "Город: " + city + "\n" + "Улица: " + street + "\n" + "Дом: " + building;
+                String resultingString = "Город: " + city + "\n" + "Улица: " + street + "\n" + "Дом: " + building + "\n" + "Модель: " + modelCounter;
                 result.setText(resultingString);
                 showResultTextView();
             } else {
@@ -89,12 +93,14 @@ public class MainActivity extends AppCompatActivity {
         result = findViewById(R.id.tv_result);
         errorMessage = findViewById(R.id.tv_error_message);
         progressBar = findViewById(R.id.pb_loading_indicator);
+        httpLink = findViewById(R.id.tv_http_link);
 
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(View v) {
                 URL generatedURL = generateURL(searchField.getText().toString());
+                httpLink.setText(jsonResponse);
                 new VKQueryTask().execute(generatedURL);
             }
         };
