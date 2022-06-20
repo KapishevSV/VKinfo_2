@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -61,20 +62,28 @@ public class MainActivity extends AppCompatActivity {
             String street = null;
             String building = null;
             String modelCounter = null;
+            StringBuilder resultingString = new StringBuilder();
 
             if(response != null && response != "") {
                 try {
                     jsonResponse = response;
-                    JSONObject jsonResponse = new JSONObject(response);
-                    city = jsonResponse.getString("city");
-                    street = jsonResponse.getString("street");
-                    building = jsonResponse.getString("building");
-                    modelCounter = jsonResponse.getJSONObject("modelCounter").getString("type_name");
+//                    JSONObject jsonResponse = new JSONObject(response);
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonResponse = jsonArray.getJSONObject(i);
+                        city = jsonResponse.getString("city");
+                        street = jsonResponse.getString("street");
+                        building = jsonResponse.getString("building");
+                        modelCounter = jsonResponse.getJSONObject("modelCounter").getString("type_name");
+                        resultingString.append("Город: ").append(city).append("\n").append("Улица: ").append(street)
+                                .append("\n").append("Дом: ").append(building).append("\n").append("Модель: ")
+                                .append(modelCounter).append("\n").append("-----------------------------").append("\n");
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                String resultingString = "Город: " + city + "\n" + "Улица: " + street + "\n" + "Дом: " + building + "\n" + "Модель: " + modelCounter;
-                result.setText(resultingString);
+                result.setText(resultingString.toString());
                 showResultTextView();
             } else {
                 showErrorTextView();

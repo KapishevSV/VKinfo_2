@@ -14,6 +14,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class NetworkUtils {
     private static final String API_BASE_URL = "http://home71.hopto.org:3311/postgresql/";
+    //private static final String API_BASE_URL = "http://localhost:8080/";
     private static final String USERS_GET = "counter_sni";
     private static final String PARAM_USER_ID = "sni";
 
